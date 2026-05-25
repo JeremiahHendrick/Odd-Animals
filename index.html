@@ -1,0 +1,2027 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Odd Animals Field Index</title>
+    <meta
+      name="description"
+      content="A searchable field index of unusual animals with local images, filters, favorites, and detailed profiles."
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #101317;
+        --surface: #171c20;
+        --surface-2: #20262a;
+        --surface-3: #293037;
+        --text: #f2f0e8;
+        --muted: #b9b5aa;
+        --subtle: #858178;
+        --line: rgba(242, 240, 232, 0.13);
+        --line-strong: rgba(242, 240, 232, 0.22);
+        --green: #8fcf9d;
+        --gold: #e6bd6b;
+        --coral: #ef8b72;
+        --cyan: #78c6d0;
+        --violet: #b8a0ff;
+        --danger: #f06e6e;
+        --shadow: 0 22px 58px rgba(0, 0, 0, 0.36);
+        --radius: 8px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-height: 100%;
+        background: var(--bg);
+      }
+
+      body {
+        min-height: 100%;
+        margin: 0;
+        color: var(--text);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.45;
+        background:
+          linear-gradient(
+            90deg,
+            rgba(242, 240, 232, 0.035) 1px,
+            transparent 1px
+          ),
+          linear-gradient(rgba(242, 240, 232, 0.025) 1px, transparent 1px),
+          linear-gradient(135deg, #101317 0%, #15191e 44%, #101317 100%);
+        background-size:
+          56px 56px,
+          56px 56px,
+          auto;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      button {
+        color: inherit;
+      }
+
+      .shell {
+        width: min(1440px, 100%);
+        margin: 0 auto;
+        padding: 22px;
+      }
+
+      .masthead {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(360px, 0.48fr);
+        gap: 18px;
+        align-items: stretch;
+        min-height: 292px;
+      }
+
+      .intro {
+        position: relative;
+        display: grid;
+        align-content: end;
+        gap: 22px;
+        min-height: 292px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(
+            90deg,
+            rgba(16, 19, 23, 0.96),
+            rgba(16, 19, 23, 0.68)
+          ),
+          image-set(url("shoebill.png") 1x);
+        background-position: center;
+        background-size: cover;
+        box-shadow: var(--shadow);
+        padding: 28px;
+      }
+
+      .intro::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(rgba(242, 240, 232, 0.035) 1px, transparent 1px),
+          linear-gradient(
+            90deg,
+            rgba(242, 240, 232, 0.035) 1px,
+            transparent 1px
+          );
+        background-size: 18px 18px;
+        mask-image: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.65),
+          transparent 78%
+        );
+        pointer-events: none;
+      }
+
+      .intro > * {
+        position: relative;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        width: max-content;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 9px;
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius);
+        background: rgba(16, 19, 23, 0.72);
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 0 3px rgba(143, 207, 157, 0.18);
+      }
+
+      h1 {
+        max-width: 13ch;
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(44px, 8vw, 96px);
+        line-height: 0.9;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 68ch;
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(15px, 1.6vw, 18px);
+      }
+
+      .heroStats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        max-width: 680px;
+      }
+
+      .stat {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(16, 19, 23, 0.7);
+        padding: 12px;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 22px;
+        line-height: 1;
+      }
+
+      .stat span {
+        display: block;
+        margin-top: 5px;
+        color: var(--subtle);
+        font-size: 12px;
+      }
+
+      .spotlight {
+        display: grid;
+        grid-template-rows: 1fr auto;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .spotlightImage {
+        position: relative;
+        min-height: 210px;
+        background: #0c0f12;
+      }
+
+      .spotlightImage img {
+        width: 100%;
+        height: 100%;
+        min-height: 210px;
+        display: block;
+        object-fit: cover;
+      }
+
+      .spotlightLabel {
+        position: absolute;
+        right: 12px;
+        bottom: 12px;
+        border: 1px solid rgba(16, 19, 23, 0.55);
+        border-radius: var(--radius);
+        background: rgba(242, 240, 232, 0.9);
+        color: #151515;
+        padding: 7px 9px;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .spotlightBody {
+        display: grid;
+        gap: 10px;
+        border-top: 1px solid var(--line);
+        padding: 15px;
+      }
+
+      .spotlightBody h2 {
+        margin: 0;
+        font-size: 20px;
+        line-height: 1.08;
+      }
+
+      .spotlightBody p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 8;
+        display: grid;
+        grid-template-columns:
+          minmax(260px, 1.25fr) repeat(3, minmax(154px, 0.55fr))
+          auto;
+        gap: 10px;
+        align-items: end;
+        margin: 16px 0 0;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(23, 28, 32, 0.92);
+        box-shadow: 0 16px 42px rgba(0, 0, 0, 0.24);
+        padding: 12px;
+        backdrop-filter: blur(16px);
+      }
+
+      .field {
+        display: grid;
+        gap: 6px;
+        min-width: 0;
+      }
+
+      label,
+      .fieldLabel {
+        color: var(--subtle);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+
+      input[type="search"],
+      select {
+        min-height: 42px;
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        outline: none;
+        background: #0e1114;
+        color: var(--text);
+        padding: 0 12px;
+      }
+
+      input[type="search"]:focus,
+      select:focus,
+      button:focus-visible {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 3px rgba(230, 189, 107, 0.18);
+      }
+
+      .controlCluster {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        gap: 8px;
+        align-items: end;
+      }
+
+      .iconButton,
+      .textButton,
+      .chip,
+      .favoriteButton {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface-2);
+        cursor: pointer;
+        transition:
+          transform 120ms ease,
+          background 160ms ease,
+          border-color 160ms ease;
+      }
+
+      .iconButton {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        padding: 0;
+      }
+
+      .iconButton svg {
+        width: 18px;
+        height: 18px;
+        stroke: currentColor;
+        stroke-width: 2;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .textButton {
+        min-height: 42px;
+        padding: 0 12px;
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .iconButton:hover,
+      .textButton:hover,
+      .chip:hover,
+      .favoriteButton:hover {
+        border-color: var(--line-strong);
+        background: var(--surface-3);
+      }
+
+      .iconButton:active,
+      .textButton:active,
+      .chip:active,
+      .favoriteButton:active {
+        transform: translateY(1px);
+      }
+
+      .iconButton[aria-pressed="true"],
+      .chip[aria-pressed="true"],
+      .favoriteButton[aria-pressed="true"] {
+        border-color: rgba(230, 189, 107, 0.65);
+        background: rgba(230, 189, 107, 0.16);
+        color: #ffe1a2;
+      }
+
+      .resultsBar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        margin: 16px 0 12px;
+      }
+
+      .resultsBar p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .chips {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .chip {
+        flex: 0 0 auto;
+        min-height: 34px;
+        padding: 0 10px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+        gap: 16px;
+        align-items: start;
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 92px;
+        display: grid;
+        gap: 12px;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(23, 28, 32, 0.86);
+        padding: 14px;
+      }
+
+      .panel h2 {
+        margin: 0 0 10px;
+        color: var(--muted);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .miniList {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .miniList li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .meter {
+        overflow: hidden;
+        flex: 0 0 76px;
+        height: 7px;
+        border-radius: 999px;
+        background: #0e1114;
+      }
+
+      .meter span {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: var(--green);
+      }
+
+      .favoriteList {
+        display: grid;
+        gap: 8px;
+        min-height: 32px;
+      }
+
+      .favoriteList button {
+        width: 100%;
+        min-height: 34px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: #0e1114;
+        color: var(--muted);
+        cursor: pointer;
+        text-align: left;
+        padding: 7px 9px;
+      }
+
+      .favoriteList button:hover {
+        color: var(--text);
+        border-color: var(--line-strong);
+      }
+
+      .emptySide {
+        color: var(--subtle);
+        font-size: 13px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .card {
+        grid-column: span 4;
+        display: grid;
+        grid-template-rows: 190px 1fr;
+        min-height: 386px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: 0 12px 34px rgba(0, 0, 0, 0.22);
+        cursor: pointer;
+      }
+
+      .card:hover {
+        border-color: var(--line-strong);
+      }
+
+      .cardMedia {
+        position: relative;
+        background: #0e1114;
+      }
+
+      .cardMedia img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        transition: transform 240ms ease;
+      }
+
+      .card:hover .cardMedia img {
+        transform: scale(1.035);
+      }
+
+      .fallback {
+        position: absolute;
+        inset: 0;
+        display: none;
+        place-items: center;
+        padding: 16px;
+        background:
+          linear-gradient(135deg, rgba(120, 198, 208, 0.2), transparent),
+          #11161b;
+        color: var(--muted);
+        text-align: center;
+        font-weight: 800;
+      }
+
+      .badgeRow {
+        position: absolute;
+        inset: 10px 10px auto;
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        pointer-events: none;
+      }
+
+      .badge {
+        border: 1px solid rgba(16, 19, 23, 0.35);
+        border-radius: var(--radius);
+        background: rgba(242, 240, 232, 0.88);
+        color: #111;
+        padding: 5px 7px;
+        font-size: 11px;
+        font-weight: 900;
+      }
+
+      .badge.threatened {
+        background: rgba(240, 110, 110, 0.9);
+        color: #190606;
+      }
+
+      .cardBody {
+        display: grid;
+        gap: 10px;
+        padding: 13px;
+      }
+
+      .titleLine {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        align-items: start;
+      }
+
+      .animalName {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.12;
+      }
+
+      .scientific {
+        margin-top: 3px;
+        color: var(--subtle);
+        font-size: 12px;
+        font-style: italic;
+      }
+
+      .favoriteButton {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        color: var(--muted);
+      }
+
+      .favoriteButton svg {
+        width: 18px;
+        height: 18px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linejoin: round;
+      }
+
+      .favoriteButton[aria-pressed="true"] svg {
+        fill: currentColor;
+      }
+
+      .summary {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-self: end;
+      }
+
+      .tag {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.18);
+        color: var(--muted);
+        padding: 4px 7px;
+        font-size: 11px;
+        line-height: 1.1;
+      }
+
+      .grid.compact .card {
+        grid-column: span 6;
+        grid-template-columns: 154px minmax(0, 1fr);
+        grid-template-rows: auto;
+        min-height: 174px;
+      }
+
+      .grid.compact .cardMedia {
+        min-height: 174px;
+      }
+
+      .grid.compact .card:hover .cardMedia img {
+        transform: none;
+      }
+
+      .emptyState {
+        grid-column: 1 / -1;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        padding: 28px;
+        color: var(--muted);
+      }
+
+      dialog {
+        width: min(1000px, calc(100vw - 28px));
+        max-height: calc(100vh - 28px);
+        overflow: hidden;
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius);
+        background: #11161a;
+        color: var(--text);
+        box-shadow: var(--shadow);
+        padding: 0;
+      }
+
+      dialog::backdrop {
+        background: rgba(0, 0, 0, 0.68);
+        backdrop-filter: blur(5px);
+      }
+
+      .modalShell {
+        display: grid;
+        grid-template-columns: minmax(320px, 0.95fr) minmax(0, 1.05fr);
+        max-height: calc(100vh - 28px);
+      }
+
+      .modalMedia {
+        position: relative;
+        min-height: 520px;
+        background: #080a0c;
+      }
+
+      .modalMedia img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      .modalContent {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        min-height: 0;
+      }
+
+      .modalHeader,
+      .modalFooter {
+        border-bottom: 1px solid var(--line);
+        padding: 16px;
+      }
+
+      .modalFooter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        border-top: 1px solid var(--line);
+        border-bottom: 0;
+      }
+
+      .modalHeader h2 {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1;
+      }
+
+      .modalScroll {
+        overflow: auto;
+        display: grid;
+        align-content: start;
+        gap: 16px;
+        padding: 16px;
+      }
+
+      .modalScroll p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .factGrid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .fact {
+        min-height: 78px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        padding: 11px;
+      }
+
+      .fact b {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--subtle);
+        font-size: 11px;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+
+      .fact span {
+        color: var(--text);
+        font-size: 14px;
+      }
+
+      .modalActions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .visuallyHidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+      }
+
+      @media (max-width: 1160px) {
+        .masthead,
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .toolbar {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .controlCluster {
+          justify-content: start;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .shell {
+          padding: 12px;
+        }
+
+        .intro {
+          min-height: 520px;
+          padding: 18px;
+          background:
+            linear-gradient(
+              180deg,
+              rgba(16, 19, 23, 0.28),
+              rgba(16, 19, 23, 0.95)
+            ),
+            image-set(url("shoebill.png") 1x);
+          background-position: center;
+          background-size: cover;
+        }
+
+        h1 {
+          font-size: clamp(42px, 17vw, 66px);
+        }
+
+        .heroStats,
+        .sidebar,
+        .toolbar {
+          grid-template-columns: 1fr;
+        }
+
+        .resultsBar {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .grid .card,
+        .grid.compact .card {
+          grid-column: 1 / -1;
+          grid-template-columns: 1fr;
+          grid-template-rows: 210px auto;
+          min-height: 0;
+        }
+
+        .grid.compact .cardMedia {
+          min-height: 210px;
+        }
+
+        .modalShell {
+          grid-template-columns: 1fr;
+          overflow: auto;
+        }
+
+        .modalMedia {
+          min-height: 270px;
+        }
+
+        .modalContent {
+          min-height: auto;
+        }
+
+        .factGrid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="shell">
+      <header class="masthead">
+        <section class="intro" aria-labelledby="pageTitle">
+          <span class="eyebrow">Field index</span>
+          <div>
+            <h1 id="pageTitle">Odd Animals</h1>
+            <p class="lede">
+              Browse the wonderfully specific end of life on Earth: ancient
+              mammals, deep-sea enigmas, reef performers, living fossils, and
+              animals that look like they were designed during a very late lab
+              shift.
+            </p>
+          </div>
+          <div class="heroStats" aria-label="Collection summary">
+            <div class="stat">
+              <strong id="totalStat">0</strong>
+              <span>profiles</span>
+            </div>
+            <div class="stat">
+              <strong id="threatStat">0</strong>
+              <span>at-risk entries</span>
+            </div>
+            <div class="stat">
+              <strong id="habitatStat">0</strong>
+              <span>habitat types</span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="spotlight" aria-labelledby="spotlightTitle">
+          <div class="spotlightImage">
+            <img
+              id="spotlightImg"
+              src="leafy_seadragon.png"
+              alt="Leafy Seadragon"
+            />
+            <span class="spotlightLabel" id="spotlightGroup">Fish</span>
+          </div>
+          <div class="spotlightBody">
+            <h2 id="spotlightTitle">Leafy Seadragon</h2>
+            <p id="spotlightText">
+              Looks like floating seaweed; related to seahorses.
+            </p>
+            <button class="textButton" id="spotlightButton" type="button">
+              Open profile
+            </button>
+          </div>
+        </aside>
+      </header>
+
+      <section class="toolbar" aria-label="Gallery controls">
+        <div class="field">
+          <label for="query">Search</label>
+          <input
+            id="query"
+            type="search"
+            autocomplete="off"
+            placeholder="Name, region, habitat, trait..."
+          />
+        </div>
+
+        <div class="field">
+          <label for="habitat">Habitat</label>
+          <select id="habitat">
+            <option value="">All habitats</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="group">Group</label>
+          <select id="group">
+            <option value="">All groups</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="sort">Sort</label>
+          <select id="sort">
+            <option value="name">Name</option>
+            <option value="group">Group</option>
+            <option value="habitat">Habitat</option>
+            <option value="status">Status</option>
+          </select>
+        </div>
+
+        <div class="controlCluster" aria-label="View controls">
+          <button
+            class="iconButton"
+            id="threatToggle"
+            type="button"
+            aria-pressed="false"
+            title="At-risk only"
+          >
+            <span class="visuallyHidden">At-risk only</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3 2.8 20h18.4L12 3Z" />
+              <path d="M12 9v5" />
+              <path d="M12 17h.01" />
+            </svg>
+          </button>
+          <button
+            class="iconButton"
+            id="favoriteToggle"
+            type="button"
+            aria-pressed="false"
+            title="Favorites only"
+          >
+            <span class="visuallyHidden">Favorites only</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.2l-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"
+              />
+            </svg>
+          </button>
+          <button
+            class="iconButton"
+            id="viewToggle"
+            type="button"
+            aria-pressed="false"
+            title="Compact view"
+          >
+            <span class="visuallyHidden">Compact view</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 5h16" />
+              <path d="M4 12h16" />
+              <path d="M4 19h16" />
+            </svg>
+          </button>
+          <button class="textButton" id="resetButton" type="button">
+            Reset
+          </button>
+        </div>
+      </section>
+
+      <div class="resultsBar">
+        <p aria-live="polite">
+          Showing <strong id="visibleCount">0</strong> of
+          <strong id="allCount">0</strong>
+        </p>
+        <div class="chips" aria-label="Quick filters" id="quickFilters"></div>
+      </div>
+
+      <main class="layout">
+        <aside class="sidebar" aria-label="Collection details">
+          <section class="panel">
+            <h2>Groups</h2>
+            <ul class="miniList" id="groupSummary"></ul>
+          </section>
+          <section class="panel">
+            <h2>Habitats</h2>
+            <ul class="miniList" id="habitatSummary"></ul>
+          </section>
+          <section class="panel">
+            <h2>Favorites</h2>
+            <div class="favoriteList" id="favoriteList"></div>
+          </section>
+        </aside>
+
+        <section>
+          <div class="grid" id="grid" aria-label="Animal profiles"></div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="profileDialog" aria-labelledby="modalName">
+      <div class="modalShell">
+        <div class="modalMedia">
+          <img id="modalImg" alt="" />
+          <div class="fallback" id="modalFallback"></div>
+        </div>
+        <div class="modalContent">
+          <header class="modalHeader">
+            <h2 id="modalName"></h2>
+            <div class="scientific" id="modalSci"></div>
+          </header>
+          <div class="modalScroll">
+            <p id="modalWhy"></p>
+            <div class="tags" id="modalTags"></div>
+            <div class="factGrid">
+              <div class="fact">
+                <b>Habitat</b><span id="modalHabitat"></span>
+              </div>
+              <div class="fact">
+                <b>Region</b><span id="modalRegion"></span>
+              </div>
+              <div class="fact"><b>Group</b><span id="modalGroup"></span></div>
+              <div class="fact">
+                <b>Status</b><span id="modalStatus"></span>
+              </div>
+            </div>
+          </div>
+          <footer class="modalFooter">
+            <span class="fieldLabel" id="modalFile"></span>
+            <div class="modalActions">
+              <button
+                class="iconButton"
+                id="modalFavorite"
+                type="button"
+                aria-pressed="false"
+                title="Favorite"
+              >
+                <span class="visuallyHidden">Favorite</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.2l-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"
+                  />
+                </svg>
+              </button>
+              <button class="textButton" id="closeDialog" type="button">
+                Close
+              </button>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </dialog>
+
+    <script>
+      const animals = [
+        {
+          id: "aye_aye",
+          name: "Aye-Aye",
+          sci: "Daubentonia madagascariensis",
+          habitat: "Rainforest",
+          region: "Madagascar",
+          group: "Mammal",
+          status: "Endangered",
+          threatened: true,
+          why: "A nocturnal lemur that taps wood and fishes out grubs with an extra-long finger. Looks like it got no sleep but is harmless to humans",
+          image: "aye_aye.png",
+          tags: ["nocturnal", "lemur", "percussive foraging"],
+        },
+        {
+          id: "axolotl",
+          name: "Axolotl",
+          sci: "Ambystoma mexicanum",
+          habitat: "Freshwater canals",
+          region: "Mexico",
+          group: "Amphibian",
+          status: "Critically endangered",
+          threatened: true,
+          why: "A salamander that keeps larval features as an adult and can regrow limbs. Looks like a mythical creature.",
+          image: "axolotl.png",
+          tags: ["regeneration", "neoteny", "freshwater"],
+        },
+        {
+          id: "barreleye",
+          name: "Barreleye Fish",
+          sci: "Macropinna microstoma",
+          habitat: "Deep sea",
+          region: "North Pacific",
+          group: "Fish",
+          status: "Not assessed",
+          threatened: false,
+          why: "A deep-sea fish with a transparent head and tubular eyes that rotate upward.",
+          image: "barreleye.png",
+          tags: ["transparent head", "deep sea", "rotating eyes"],
+        },
+        {
+          id: "basket_star",
+          name: "Basket Star",
+          sci: "Gorgonocephalus spp.",
+          habitat: "Seafloor",
+          region: "Various oceans",
+          group: "Invertebrate",
+          status: "Not assessed",
+          threatened: false,
+          why: "A brittle-star relative with many branching arms that unfold into a feeding net. Physically harmless to humans but looks like an alien.",
+          image: "basket_star.png",
+          tags: ["echinoderm", "branching arms", "night feeder"],
+        },
+        {
+          id: "black_dragonfish",
+          name: "Black Dragonfish",
+          sci: "Stomiidae family",
+          habitat: "Deep sea",
+          region: "Global deep ocean",
+          group: "Fish",
+          status: "Not assessed",
+          threatened: false,
+          why: "A dark predator that uses bioluminescence in the ocean's lightless zones. It has fang-like teeth but is not dangerous to humans.",
+          image: "black_dragonfish.png",
+          tags: ["bioluminescent", "predator", "deep sea"],
+        },
+        {
+          id: "dhole",
+          name: "Dhole",
+          sci: "Cuon alpinus",
+          habitat: "Forest and grassland",
+          region: "Asia",
+          group: "Mammal",
+          status: "Endangered",
+          threatened: true,
+          why: "A highly social wild dog known for pack hunting and whistling calls.",
+          image: "dhole.png",
+          tags: ["pack hunter", "wild dog", "whistles"],
+        },
+        {
+          id: "dumbo_octopus",
+          name: "Dumbo Octopus",
+          sci: "Grimpoteuthis spp.",
+          habitat: "Deep sea",
+          region: "Global deep ocean",
+          group: "Mollusk",
+          status: "Not assessed",
+          threatened: false,
+          why: "A soft-bodied octopus that swims with ear-like fins above the seafloor.",
+          image: "dumbo_octopus.png",
+          tags: ["finned", "deep sea", "soft body"],
+        },
+        {
+          id: "giant_isopod",
+          name: "Giant Isopod",
+          sci: "Bathynomus spp.",
+          habitat: "Deep sea floor",
+          region: "Atlantic, Pacific, and Indian Oceans",
+          group: "Crustacean",
+          status: "Not assessed",
+          threatened: false,
+          why: "A large armored scavenger related to the tiny woodlice found under logs. Harmless to humans but looks like a giant bug from a horror movie.",
+          image: "giant_isopod.png",
+          tags: ["armored", "scavenger", "crustacean"],
+        },
+        {
+          id: "giant_phantom_jellyfish",
+          name: "Giant Phantom Jellyfish",
+          sci: "Stygiomedusa gigantea",
+          habitat: "Deep sea",
+          region: "Worldwide",
+          group: "Cnidarian",
+          status: "Not assessed",
+          threatened: false,
+          why: "A rarely seen jellyfish with enormous ribbon-like oral arms. Harmless to humans but looks intimidating.",
+          image: "giant_phantom_jellyfish.png",
+          tags: ["rare sighting", "jellyfish", "ribbon arms"],
+        },
+        {
+          id: "giant_shipworm",
+          name: "Giant Shipworm",
+          sci: "Kuphus polythalamia",
+          habitat: "Seafloor mud",
+          region: "Indo-Pacific",
+          group: "Mollusk",
+          status: "Not assessed",
+          threatened: false,
+          why: "A huge tube-dwelling bivalve that looks nothing like a typical clam. Looks nasty but is harmless to humans.",
+          image: "giant_shipworm.png",
+          tags: ["tube", "bivalve", "mud"],
+        },
+        {
+          id: "giant_siphonophore",
+          name: "Giant Siphonophore",
+          sci: "Praya dubia",
+          habitat: "Open ocean",
+          region: "Deep pelagic waters",
+          group: "Cnidarian",
+          status: "Not assessed",
+          threatened: false,
+          why: "A long colonial animal made of specialized individuals working as one. Harmless to humans.",
+          image: "giant_siphonophore.png",
+          tags: ["colony", "deep sea", "long"],
+        },
+        {
+          id: "goblin_shark",
+          name: "Goblin Shark",
+          sci: "Mitsukurina owstoni",
+          habitat: "Deep sea",
+          region: "Worldwide",
+          group: "Fish",
+          status: "Least concern",
+          threatened: false,
+          why: "A rarely encountered shark with jaws that can thrust forward to seize prey. Looks like a scary shark from the deep, but is not dangerous to humans.",
+          image: "goblin_shark.png",
+          tags: ["extendable jaw", "rare", "deep sea"],
+        },
+        {
+          id: "goblin_spider",
+          name: "Goblin Spider",
+          sci: "Oonopidae family",
+          habitat: "Leaf litter",
+          region: "Worldwide",
+          group: "Arachnid",
+          status: "Not assessed",
+          threatened: false,
+          why: "Tiny spiders that spend much of their lives hidden in soil, leaves, and bark. Despite their appearance, they are harmless to humans.",
+          image: "goblin_spider.png",
+          tags: ["tiny", "hidden", "leaf litter"],
+        },
+        {
+          id: "greater_bilby",
+          name: "Greater Bilby",
+          sci: "Macrotis lagotis",
+          habitat: "Desert and scrub",
+          region: "Australia",
+          group: "Mammal",
+          status: "Vulnerable",
+          threatened: true,
+          why: "A long-eared marsupial that digs extensive burrows in arid landscapes.",
+          image: "greater_bilby.png",
+          tags: ["marsupial", "burrower", "night"],
+        },
+        {
+          id: "hirola",
+          name: "Hirola",
+          sci: "Beatragus hunteri",
+          habitat: "Savanna",
+          region: "Kenya and Somalia",
+          group: "Mammal",
+          status: "Critically endangered",
+          threatened: true,
+          why: "A rare antelope with facial markings that look like delicate spectacles.",
+          image: "hirola.png",
+          tags: ["antelope", "rare", "horns"],
+        },
+        {
+          id: "hispaniolan_hutia",
+          name: "Hispaniolan Hutia",
+          sci: "Plagiodontia aedium",
+          habitat: "Forest",
+          region: "Hispaniola",
+          group: "Mammal",
+          status: "Vulnerable",
+          threatened: true,
+          why: "A stocky Caribbean rodent and one of the few surviving native land mammals there.",
+          image: "hispaniolan_hutia.png",
+          tags: ["rodent", "island", "nocturnal"],
+        },
+        {
+          id: "hoatzin",
+          name: "Hoatzin",
+          sci: "Opisthocomus hoazin",
+          habitat: "Wetland forest",
+          region: "Amazon and Orinoco basins",
+          group: "Bird",
+          status: "Least concern",
+          threatened: false,
+          why: "A leaf-eating bird with a fermentation chamber and clawed chicks.",
+          image: "hoatzin.png",
+          tags: ["fermentation", "clawed chicks", "wetlands"],
+        },
+        {
+          id: "immortal_jellyfish",
+          name: '"Immortal" Jellyfish',
+          sci: "Turritopsis dohrnii",
+          habitat: "Ocean",
+          region: "Many seas",
+          group: "Cnidarian",
+          status: "Not assessed",
+          threatened: false,
+          why: "A tiny jellyfish known for reverting to an earlier life stage under stress. It can sting but is harmless to humans.",
+          image: "immortal_jellyfish.png",
+          tags: ["life cycle reset", "tiny", "jellyfish"],
+        },
+        {
+          id: "kakapo",
+          name: "Kakapo",
+          sci: "Strigops habroptilus",
+          habitat: "Forest",
+          region: "New Zealand",
+          group: "Bird",
+          status: "Critically endangered",
+          threatened: true,
+          why: "A heavy, flightless, nocturnal parrot with a booming courtship call.",
+          image: "kakapo.png",
+          tags: ["flightless", "parrot", "nocturnal"],
+        },
+        {
+          id: "leaf_sheep",
+          name: "Leaf Sheep Sea Slug",
+          sci: "Costasiella kuroshimae",
+          habitat: "Shallow seaweed",
+          region: "Indo-Pacific",
+          group: "Mollusk",
+          status: "Not assessed",
+          threatened: false,
+          why: "A tiny sea slug that keeps chloroplasts from algae and looks improbably cheerful.",
+          image: "leaf_sheep.png",
+          tags: ["kleptoplasty", "sea slug", "small"],
+        },
+        {
+          id: "leafy_seadragon",
+          name: "Leafy Seadragon",
+          sci: "Phycodurus eques",
+          habitat: "Kelp and seagrass",
+          region: "Southern Australia",
+          group: "Fish",
+          status: "Near threatened",
+          threatened: true,
+          why: "A seahorse relative whose leafy appendages make it look like drifting seaweed.",
+          image: "leafy_seadragon.png",
+          tags: ["camouflage", "seahorse relative", "kelp"],
+        },
+        {
+          id: "mata_mata",
+          name: "Mata Mata",
+          sci: "Chelus fimbriata",
+          habitat: "Freshwater",
+          region: "South America",
+          group: "Reptile",
+          status: "Least concern",
+          threatened: false,
+          why: "A flat, leaf-like turtle that ambushes fish with sudden suction feeding. Harmless to humans but looks like a prehistoric creature.",
+          image: "mata_mata.png",
+          tags: ["camouflage", "turtle", "ambush"],
+        },
+        {
+          id: "olm",
+          name: "Olm",
+          sci: "Proteus anguinus",
+          habitat: "Caves",
+          region: "Dinaric Alps",
+          group: "Amphibian",
+          status: "Vulnerable",
+          threatened: true,
+          why: "A pale cave salamander that lives in darkness and can go years without eating.",
+          image: "olm.png",
+          tags: ["cave", "blind", "long-lived"],
+        },
+        {
+          id: "pink_fairy_armadillo",
+          name: "Pink Fairy Armadillo",
+          sci: "Chlamyphorus truncatus",
+          habitat: "Desert and scrub",
+          region: "Argentina",
+          group: "Mammal",
+          status: "Data deficient",
+          threatened: true,
+          why: "A tiny underground armadillo with a pink shell and a talent for vanishing.",
+          image: "pink_fairy_armadillo.png",
+          tags: ["burrower", "tiny", "cryptic"],
+        },
+        {
+          id: "pygmy_hippopotamus",
+          name: "Pygmy Hippopotamus",
+          sci: "Choeropsis liberiensis",
+          habitat: "Forest rivers",
+          region: "West Africa",
+          group: "Mammal",
+          status: "Endangered",
+          threatened: true,
+          why: "A small forest-dwelling hippo that spends much of its time hidden in vegetation.",
+          image: "pygmy_hippopotamus.png",
+          tags: ["river", "forest", "shy"],
+        },
+        {
+          id: "pyrosome",
+          name: "Pyrosome",
+          sci: "Pyrosoma spp.",
+          habitat: "Open ocean",
+          region: "Global",
+          group: "Tunicate",
+          status: "Not assessed",
+          threatened: false,
+          why: "A glowing tube-shaped colony made of many small filter-feeding animals. Harmless to humans but looks otherworldly.",
+          image: "pyrosome.png",
+          tags: ["bioluminescent", "colony", "tunicate"],
+        },
+        {
+          id: "saola",
+          name: "Saola",
+          sci: "Pseudoryx nghetinhensis",
+          habitat: "Mountain forest",
+          region: "Vietnam and Laos",
+          group: "Mammal",
+          status: "Critically endangered",
+          threatened: true,
+          why: "One of the rarest large mammals, often nicknamed the Asian unicorn. Harmless to humans.",
+          image: "saola.png",
+          tags: ["rare", "bovid", "mountain forest"],
+        },
+        {
+          id: "sarcastic_fringehead",
+          name: "Sarcastic Fringehead",
+          sci: "Neoclinus blanchardi",
+          habitat: "Coastal burrows",
+          region: "Pacific coast of North America",
+          group: "Fish",
+          status: "Least concern",
+          threatened: false,
+          why: "A territorial fish that opens an enormous colorful mouth during disputes.",
+          image: "sarcastic_fringehead.png",
+          tags: ["big mouth", "territorial", "burrow"],
+        },
+        {
+          id: "sea_pig",
+          name: "Sea Pig",
+          sci: "Scotoplanes spp.",
+          habitat: "Deep sea floor",
+          region: "Deep ocean",
+          group: "Echinoderm",
+          status: "Not assessed",
+          threatened: false,
+          why: "A walking sea cucumber that crosses the abyssal plain on tube feet. Harmless to humans but looks like a pink alien blob.",
+          image: "sea_pig.png",
+          tags: ["sea cucumber", "benthic", "abyssal"],
+        },
+        {
+          id: "shoebill",
+          name: "Shoebill",
+          sci: "Balaeniceps rex",
+          habitat: "Swamp",
+          region: "Central and East Africa",
+          group: "Bird",
+          status: "Vulnerable",
+          threatened: true,
+          why: "A towering wetland bird with a bill shaped like a wooden clog. Harmless to humans but looks like a prehistoric creature.",
+          image: "shoebill.png",
+          tags: ["wetland", "large bill", "ambush"],
+        },
+        {
+          id: "solenodon",
+          name: "Solenodon",
+          sci: "Solenodon paradoxus / Solenodon cubanus",
+          habitat: "Forest",
+          region: "Hispaniola and Cuba",
+          group: "Mammal",
+          status: "Endangered / at risk",
+          threatened: true,
+          why: "A venomous, ancient-looking insect-eater with a flexible snout.",
+          image: "solenodon.png",
+          tags: ["venomous saliva", "rare mammal", "night"],
+        },
+        {
+          id: "spanish_dancer",
+          name: "Spanish Dancer",
+          sci: "Hexabranchus sanguineus",
+          habitat: "Coral reef",
+          region: "Indo-Pacific",
+          group: "Mollusk",
+          status: "Not assessed",
+          threatened: false,
+          why: "A large red nudibranch that swims by unfurling and rippling its body.",
+          image: "spanish_dancer.png",
+          tags: ["nudibranch", "reef", "bright red"],
+        },
+        {
+          id: "star_nosed_mole",
+          name: "Star-Nosed Mole",
+          sci: "Condylura cristata",
+          habitat: "Wet meadows",
+          region: "Eastern North America",
+          group: "Mammal",
+          status: "Least concern",
+          threatened: false,
+          why: "A fast-foraging mole with a star-shaped nose packed with sensory organs.",
+          image: "star_nosed_mole.png",
+          tags: ["sensory nose", "wetlands", "fast forager"],
+        },
+        {
+          id: "superb_lyrebird",
+          name: "Superb Lyrebird",
+          sci: "Menura novaehollandiae",
+          habitat: "Forest",
+          region: "Australia",
+          group: "Bird",
+          status: "Least concern",
+          threatened: false,
+          why: "A mimic famous for copying other birds and human-made sounds with startling accuracy.",
+          image: "superb_lyrebird.png",
+          tags: ["mimic", "songbird", "display tail"],
+        },
+        {
+          id: "tardigrade",
+          name: "Tardigrade",
+          sci: "Tardigrada phylum",
+          habitat: "Moss and freshwater",
+          region: "Worldwide",
+          group: "Micro-animal",
+          status: "Not assessed",
+          threatened: false,
+          why: "A tiny animal that can survive extreme stress by entering a dried tun state.",
+          image: "tardigrade.png",
+          tags: ["extreme survival", "tiny", "moss"],
+        },
+        {
+          id: "tree_pangolin",
+          name: "Tree Pangolin",
+          sci: "Phataginus spp.",
+          habitat: "Forest",
+          region: "Africa",
+          group: "Mammal",
+          status: "Threatened",
+          threatened: true,
+          why: "A scaled mammal that climbs trees and curls into a tight armored ball.",
+          image: "tree_pangolin.png",
+          tags: ["scales", "climber", "nocturnal"],
+        },
+        {
+          id: "tuatara",
+          name: "Tuatara",
+          sci: "Sphenodon punctatus",
+          habitat: "Coastal scrub",
+          region: "New Zealand",
+          group: "Reptile",
+          status: "Least concern / conservation dependent",
+          threatened: true,
+          why: "The last living member of an ancient reptile lineage and has a third eye on top of its head. Despite its appearance, it is not a lizard, and is harmless to humans.",
+          image: "tuatara.png",
+          tags: ["living fossil", "reptile", "island"],
+        },
+        {
+          id: "vampire_squid",
+          name: "Vampire Squid",
+          sci: "Vampyroteuthis infernalis",
+          habitat: "Oxygen minimum zone",
+          region: "Temperate and tropical deep oceans",
+          group: "Cephalopod",
+          status: "Not assessed",
+          threatened: false,
+          why: "A deep-sea cephalopod that can cloak itself with webbed arms. Despite its name and appearance, it does not suck blood and is harmless to humans.",
+          image: "vampire_squid.png",
+          tags: ["deep sea", "cephalopod", "webbed arms"],
+        },
+        {
+          id: "velvet_worm",
+          name: "Velvet Worm",
+          sci: "Onychophora phylum",
+          habitat: "Damp forest",
+          region: "Mostly southern hemisphere",
+          group: "Invertebrate",
+          status: "Some species threatened",
+          threatened: true,
+          why: "A soft-bodied predator that fires sticky slime to trap small prey.",
+          image: "velvet_worm.png",
+          tags: ["slime jets", "ancient lineage", "soft body"],
+        },
+        {
+          id: "yeti_crab",
+          name: "Yeti Crab",
+          sci: "Kiwa hirsuta",
+          habitat: "Hydrothermal vents",
+          region: "Deep Pacific",
+          group: "Crustacean",
+          status: "Not assessed",
+          threatened: false,
+          why: "A pale vent crab with hairy claws that host bacteria.",
+          image: "yeti_crab.png",
+          tags: ["vent", "bacteria", "hairy claws"],
+        },
+        {
+          id: "stonefish",
+          name: "Stonefish",
+          sci: "Synanceia spp.",
+          habitat: "Coral reefs and rocky bottoms",
+          region: "Indo-Pacific",
+          group: "Fish",
+          status: "Not assessed",
+          threatened: false,
+          why: "A venomous fish that blends into its surroundings. The most venomous fish known. Harmless if not provoked.",
+          image: "stonefish.png",
+          tags: ["venomous", "camouflage", "reef"],
+        },
+      ];
+
+      const state = {
+        query: "",
+        habitat: "",
+        group: "",
+        sort: "name",
+        threatenedOnly: false,
+        favoritesOnly: false,
+        compact: false,
+        quick: "",
+      };
+
+      const FAV_KEY = "oddAnimalsFavorites_v2";
+      const favorites = new Set(
+        JSON.parse(localStorage.getItem(FAV_KEY) || "[]"),
+      );
+      const saveFavorites = () =>
+        localStorage.setItem(FAV_KEY, JSON.stringify([...favorites]));
+
+      const $ = (id) => document.getElementById(id);
+      const grid = $("grid");
+      const query = $("query");
+      const habitat = $("habitat");
+      const group = $("group");
+      const sort = $("sort");
+      const visibleCount = $("visibleCount");
+      const allCount = $("allCount");
+      const threatToggle = $("threatToggle");
+      const favoriteToggle = $("favoriteToggle");
+      const viewToggle = $("viewToggle");
+      const quickFilters = $("quickFilters");
+      const favoriteList = $("favoriteList");
+      const dialog = $("profileDialog");
+      const modalFavorite = $("modalFavorite");
+
+      let currentProfile = null;
+
+      function unique(list) {
+        return [...new Set(list)].sort((a, b) => a.localeCompare(b));
+      }
+
+      function iconStar() {
+        return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.2l-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z" /></svg>';
+      }
+
+      function tag(text) {
+        const el = document.createElement("span");
+        el.className = "tag";
+        el.textContent = text;
+        return el;
+      }
+
+      function fillSelect(select, values) {
+        values.forEach((value) => {
+          const option = document.createElement("option");
+          option.value = value;
+          option.textContent = value;
+          select.appendChild(option);
+        });
+      }
+
+      function countBy(key) {
+        return animals.reduce((map, animal) => {
+          map.set(animal[key], (map.get(animal[key]) || 0) + 1);
+          return map;
+        }, new Map());
+      }
+
+      function drawSummary(target, key, color) {
+        const counts = [...countBy(key)]
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 6);
+        const max = Math.max(...counts.map((entry) => entry[1]));
+        target.innerHTML = "";
+        counts.forEach(([name, count]) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<span>${name}</span><span class="meter"><span style="width:${(count / max) * 100}%; background:${color}"></span></span>`;
+          target.appendChild(li);
+        });
+      }
+
+      function matches(animal) {
+        if (state.habitat && animal.habitat !== state.habitat) return false;
+        if (state.group && animal.group !== state.group) return false;
+        if (state.threatenedOnly && !animal.threatened) return false;
+        if (state.favoritesOnly && !favorites.has(animal.id)) return false;
+        if (
+          state.quick &&
+          !animal.tags.includes(state.quick) &&
+          animal.habitat !== state.quick &&
+          animal.group !== state.quick
+        )
+          return false;
+
+        if (!state.query) return true;
+        const haystack = [
+          animal.name,
+          animal.sci,
+          animal.habitat,
+          animal.region,
+          animal.group,
+          animal.status,
+          animal.why,
+          animal.image,
+          ...animal.tags,
+        ]
+          .join(" ")
+          .toLowerCase();
+        return haystack.includes(state.query.toLowerCase());
+      }
+
+      function sortAnimals(list) {
+        return [...list].sort((a, b) => {
+          if (state.sort === "status") {
+            return (
+              Number(b.threatened) - Number(a.threatened) ||
+              a.name.localeCompare(b.name)
+            );
+          }
+          return (
+            String(a[state.sort]).localeCompare(String(b[state.sort])) ||
+            a.name.localeCompare(b.name)
+          );
+        });
+      }
+
+      function missingImage(img, fallback, filename) {
+        img.style.display = "none";
+        fallback.style.display = "grid";
+        fallback.textContent = filename;
+      }
+
+      function toggleFavorite(id) {
+        favorites.has(id) ? favorites.delete(id) : favorites.add(id);
+        saveFavorites();
+        render();
+        if (currentProfile?.id === id) {
+          modalFavorite.setAttribute("aria-pressed", favorites.has(id));
+        }
+      }
+
+      function animalCard(animal) {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.tabIndex = 0;
+        card.setAttribute("aria-label", `${animal.name}, ${animal.group}`);
+
+        const media = document.createElement("div");
+        media.className = "cardMedia";
+        const img = document.createElement("img");
+        img.src = animal.image;
+        img.alt = animal.name;
+        img.loading = "lazy";
+        const fallback = document.createElement("div");
+        fallback.className = "fallback";
+        img.addEventListener("error", () =>
+          missingImage(img, fallback, animal.image),
+        );
+
+        const badges = document.createElement("div");
+        badges.className = "badgeRow";
+        badges.innerHTML = `<span class="badge">${animal.group}</span>${animal.threatened ? '<span class="badge threatened">At risk</span>' : ""}`;
+
+        media.append(img, fallback, badges);
+
+        const body = document.createElement("div");
+        body.className = "cardBody";
+        const titleLine = document.createElement("div");
+        titleLine.className = "titleLine";
+
+        const titleWrap = document.createElement("div");
+        titleWrap.innerHTML = `<h2 class="animalName">${animal.name}</h2><div class="scientific">${animal.sci}</div>`;
+
+        const fav = document.createElement("button");
+        fav.className = "favoriteButton";
+        fav.type = "button";
+        fav.title = "Favorite";
+        fav.setAttribute("aria-label", `Favorite ${animal.name}`);
+        fav.setAttribute("aria-pressed", favorites.has(animal.id));
+        fav.innerHTML = iconStar();
+        fav.addEventListener("click", (event) => {
+          event.stopPropagation();
+          toggleFavorite(animal.id);
+        });
+
+        titleLine.append(titleWrap, fav);
+        const summary = document.createElement("p");
+        summary.className = "summary";
+        summary.textContent = animal.why;
+        const tags = document.createElement("div");
+        tags.className = "tags";
+        [animal.habitat, animal.region, ...animal.tags.slice(0, 2)].forEach(
+          (item) => tags.appendChild(tag(item)),
+        );
+        body.append(titleLine, summary, tags);
+
+        card.append(media, body);
+        card.addEventListener("click", () => openProfile(animal.id));
+        card.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openProfile(animal.id);
+          }
+        });
+        return card;
+      }
+
+      function renderFavorites() {
+        favoriteList.innerHTML = "";
+        const saved = animals
+          .filter((animal) => favorites.has(animal.id))
+          .sort((a, b) => a.name.localeCompare(b.name));
+        if (!saved.length) {
+          const empty = document.createElement("div");
+          empty.className = "emptySide";
+          empty.textContent = "No saved profiles";
+          favoriteList.appendChild(empty);
+          return;
+        }
+        saved.slice(0, 6).forEach((animal) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.textContent = animal.name;
+          button.addEventListener("click", () => openProfile(animal.id));
+          favoriteList.appendChild(button);
+        });
+      }
+
+      function renderQuickFilters() {
+        const filters = [
+          "Deep sea",
+          "Forest",
+          "Mammal",
+          "Fish",
+          "bioluminescent",
+          "camouflage",
+        ];
+        quickFilters.innerHTML = "";
+        filters.forEach((filter) => {
+          const button = document.createElement("button");
+          button.className = "chip";
+          button.type = "button";
+          button.textContent = filter;
+          button.setAttribute("aria-pressed", state.quick === filter);
+          button.addEventListener("click", () => {
+            state.quick = state.quick === filter ? "" : filter;
+            render();
+          });
+          quickFilters.appendChild(button);
+        });
+      }
+
+      function render() {
+        const filtered = sortAnimals(animals.filter(matches));
+        visibleCount.textContent = filtered.length;
+        allCount.textContent = animals.length;
+        grid.classList.toggle("compact", state.compact);
+        threatToggle.setAttribute("aria-pressed", state.threatenedOnly);
+        favoriteToggle.setAttribute("aria-pressed", state.favoritesOnly);
+        viewToggle.setAttribute("aria-pressed", state.compact);
+
+        grid.innerHTML = "";
+        if (!filtered.length) {
+          const empty = document.createElement("div");
+          empty.className = "emptyState";
+          empty.innerHTML =
+            "<strong>No matches.</strong><br />Clear a filter or search for a broader habitat, region, or trait.";
+          grid.appendChild(empty);
+        } else {
+          filtered.forEach((animal) => grid.appendChild(animalCard(animal)));
+        }
+        renderFavorites();
+        renderQuickFilters();
+      }
+
+      function openProfile(id) {
+        const animal = animals.find((entry) => entry.id === id);
+        if (!animal) return;
+        currentProfile = animal;
+        $("modalName").textContent = animal.name;
+        $("modalSci").textContent = animal.sci;
+        $("modalWhy").textContent = animal.why;
+        $("modalHabitat").textContent = animal.habitat;
+        $("modalRegion").textContent = animal.region;
+        $("modalGroup").textContent = animal.group;
+        $("modalStatus").textContent = animal.status;
+        $("modalFile").textContent = animal.image;
+
+        const modalImg = $("modalImg");
+        const modalFallback = $("modalFallback");
+        modalImg.style.display = "block";
+        modalFallback.style.display = "none";
+        modalImg.alt = animal.name;
+        modalImg.src = animal.image;
+        modalImg.onerror = () =>
+          missingImage(modalImg, modalFallback, animal.image);
+
+        const modalTags = $("modalTags");
+        modalTags.innerHTML = "";
+        [animal.group, animal.habitat, animal.region, ...animal.tags].forEach(
+          (item) => modalTags.appendChild(tag(item)),
+        );
+        modalFavorite.setAttribute("aria-pressed", favorites.has(animal.id));
+        if (!dialog.open) dialog.showModal();
+      }
+
+      function chooseSpotlight() {
+        const index = new Date().getDate() % animals.length;
+        const animal = animals[index];
+        $("spotlightImg").src = animal.image;
+        $("spotlightImg").alt = animal.name;
+        $("spotlightGroup").textContent = animal.group;
+        $("spotlightTitle").textContent = animal.name;
+        $("spotlightText").textContent = animal.why;
+        $("spotlightButton").onclick = () => openProfile(animal.id);
+      }
+
+      fillSelect(habitat, unique(animals.map((animal) => animal.habitat)));
+      fillSelect(group, unique(animals.map((animal) => animal.group)));
+      $("totalStat").textContent = animals.length;
+      $("threatStat").textContent = animals.filter(
+        (animal) => animal.threatened,
+      ).length;
+      $("habitatStat").textContent = unique(
+        animals.map((animal) => animal.habitat),
+      ).length;
+      drawSummary($("groupSummary"), "group", "var(--cyan)");
+      drawSummary($("habitatSummary"), "habitat", "var(--green)");
+      chooseSpotlight();
+
+      query.addEventListener("input", () => {
+        state.query = query.value.trim();
+        render();
+      });
+      habitat.addEventListener("change", () => {
+        state.habitat = habitat.value;
+        render();
+      });
+      group.addEventListener("change", () => {
+        state.group = group.value;
+        render();
+      });
+      sort.addEventListener("change", () => {
+        state.sort = sort.value;
+        render();
+      });
+      threatToggle.addEventListener("click", () => {
+        state.threatenedOnly = !state.threatenedOnly;
+        render();
+      });
+      favoriteToggle.addEventListener("click", () => {
+        state.favoritesOnly = !state.favoritesOnly;
+        render();
+      });
+      viewToggle.addEventListener("click", () => {
+        state.compact = !state.compact;
+        render();
+      });
+      $("resetButton").addEventListener("click", () => {
+        Object.assign(state, {
+          query: "",
+          habitat: "",
+          group: "",
+          sort: "name",
+          threatenedOnly: false,
+          favoritesOnly: false,
+          quick: "",
+        });
+        query.value = "";
+        habitat.value = "";
+        group.value = "";
+        sort.value = "name";
+        render();
+      });
+      $("closeDialog").addEventListener("click", () => dialog.close());
+      modalFavorite.addEventListener("click", () => {
+        if (currentProfile) toggleFavorite(currentProfile.id);
+      });
+      dialog.addEventListener("click", (event) => {
+        const rect = dialog.getBoundingClientRect();
+        const inside =
+          event.clientX >= rect.left &&
+          event.clientX <= rect.right &&
+          event.clientY >= rect.top &&
+          event.clientY <= rect.bottom;
+        if (!inside) dialog.close();
+      });
+
+      render();
+    </script>
+  </body>
+</html>
